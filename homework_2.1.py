@@ -95,5 +95,6 @@ def create_shop_list():
 
 with open('new.txt', encoding= 'utf8') as f:
     for line in f:
-        line = line.strip().split(' ')
-        print(line)
+        line = line.strip()
+        name = line.split(' ')
+        print(name)
