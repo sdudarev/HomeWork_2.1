@@ -4,7 +4,7 @@ def recipes():
         recipe = []
         for entry in f:
             entry = entry.strip()
-            if entry == '':
+            if not entry:
                 cook_book.update(pars_recipe(recipe))
                 recipe = []
             else:
@@ -17,9 +17,10 @@ def pars_recipe(recipe):
     dish = recipe[0].strip()
     cook[dish] = []
     ingredients_quantity = int(recipe[1])
-    for index in range(ingredients_quantity):
-        ingredient = recipe[index+2].split('|')
-        cook[dish].append({"ingridient_name": ingredient[0].strip(), "quantity": int(ingredient[1]), "measure": ingredient[2].strip()})
+    for index in range(2, ingredients_quantity + 2):
+        ingredient = recipe[index].split('|')
+        cook[dish].append({"ingridient_name": ingredient[0].strip(), "quantity": int(ingredient[1]),
+                           "measure": ingredient[2].strip()})
     return cook
 
 
@@ -45,7 +46,7 @@ def create_shop_list():
     cook_book = recipes()
     person_count = int(input('Введите количество человек: '))
     dishes = input('ВВедите блюдо в расчете на одного человека (через запятую): ').split(', ')
-    shop_list = get_shop_list_by_dishes(cook_book ,dishes, person_count)
+    shop_list = get_shop_list_by_dishes(cook_book, dishes, person_count)
     print_shop_list(shop_list)
 
 create_shop_list()
